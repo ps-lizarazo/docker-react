@@ -7,3 +7,19 @@ before_install:
 
 script:
   - docker run -e CI=true pedro/docker-react npm run test
+
+deploy:
+  edge:
+    source: 'native-api/dpl'
+    branch: 'ebs_session_token'
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "docker-react"
+  env: "Dockerreact-env"
+  bucket_name: "elasticbeanstalk-us-east-1-598657362424"
+  bucket_path: "docker-react"
+  on:
+    branch: master
+  access_key_id: $aws_access_key_id
+  secret_access_key: $aws_secret_access_key
+  session_token: $aws_session_token
